@@ -1,0 +1,10 @@
+CREATE DATABASE PrograDB
+USE PrograDB
+
+CREATE TABLE [dbo].[estudiante](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Nombre] [varchar](50) NULL,
+	[Apellidos] [varchar](50) NULL,
+	[Edad] [int] NULL,
+	[Sexo] [varchar](50) NULL
+) ON [PRIMARY]
