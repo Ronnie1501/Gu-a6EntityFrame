@@ -31,7 +31,7 @@ while (AgregarRegistros)
     {
         contextdb.Database.EnsureCreated();
 
-        var nuevoEstudiante = new Student()
+        var NuevoEs = new Student()
         {
             Nombre = nombre,
             Apellidos = apellidos,
@@ -39,7 +39,7 @@ while (AgregarRegistros)
             Edad = edad
         };
 
-        contextdb.Add(nuevoEstudiante);
+        contextdb.Add(NuevoEs);
         contextdb.SaveChanges();
     }
 
