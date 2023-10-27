@@ -68,39 +68,6 @@ class Program
         Console.ReadLine();
     }
 
-    static void AgregarEstudiante()
-    {
-        Console.Clear();
-        Console.WriteLine("Agregar Estudiante \n");
-        Console.Write("Ingrese el Nombre: ");
-        string nombre = Console.ReadLine();
-        Console.Write("Ingrese los Apellidos: ");
-        string apellidos = Console.ReadLine();
-        Console.Write("Ingrese el Sexo: ");
-        string sexo = Console.ReadLine();
-        Console.Write("Ingrese la Edad: ");
-        int edad = Convert.ToInt32(Console.ReadLine());
-
-        using (var context = new Context())
-        {
-            context.Database.EnsureCreated();
-
-            var nuevoEstudiante = new Student()
-            {
-                Nombre = nombre,
-                Apellidos = apellidos,
-                Sexo = sexo,
-                Edad = edad
-            };
-
-            context.estudiante.Add(nuevoEstudiante);
-            context.SaveChanges();
-        }
-
-        Console.WriteLine("Estudiante agregado exitosamente.");
-        Console.ReadLine();
-    }
-
     static void ModificarEstudiante()
     {
         Console.Clear();
@@ -147,7 +114,7 @@ class Program
                 }
 
                 context.SaveChanges();
-                Console.WriteLine("Estudiante modificado exitosamente.");
+                Console.WriteLine("Estudiante modificado");
             }
             else
             {
@@ -157,6 +124,40 @@ class Program
 
         Console.ReadLine();
     }
+
+    static void AgregarEstudiante()
+    {
+        Console.Clear();
+        Console.WriteLine("Agregar Estudiante \n");
+        Console.Write("Ingrese el Nombre: ");
+        string nombre = Console.ReadLine();
+        Console.Write("Ingrese los Apellidos: ");
+        string apellidos = Console.ReadLine();
+        Console.Write("Ingrese el Sexo: ");
+        string sexo = Console.ReadLine();
+        Console.Write("Ingrese la Edad: ");
+        int edad = Convert.ToInt32(Console.ReadLine());
+
+        using (var context = new Context())
+        {
+            context.Database.EnsureCreated();
+
+            var nuevoEstudiante = new Student()
+            {
+                Nombre = nombre,
+                Apellidos = apellidos,
+                Sexo = sexo,
+                Edad = edad
+            };
+
+            context.estudiante.Add(nuevoEstudiante);
+            context.SaveChanges();
+        }
+
+        Console.WriteLine("Estudiante agregado");
+        Console.ReadLine();
+    }
+
 
     static void EliminarEstudiante()
     {
