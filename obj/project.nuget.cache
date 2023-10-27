@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EbOjI9jQVkBwyla/9f/oybl8uyrDzRkc/mmLAE1SblJqlmDPUq6rq0Z+dQaHRzZ2gVC/LUBSNt9pOJZ2HFm9wQ==",
+  "dgSpecHash": "25KmEbIOQeGnIVLsIN6bwW367tOnxH8y8aUJPZcBG0Ngq0ulWZ7lYQdqKXUTGx0ds1Dxf4X7wlkZIes5zpUIDQ==",
   "success": true,
-  "projectFilePath": "E:\\ronni\\Documents\\GitHub\\Guía6EntityFrame\\Guía6EntityFrame\\Guía6EntityFrame.csproj",
+  "projectFilePath": "E:\\ronni\\Documents\\GitHub\\Gu-a6EntityFrame\\Guía6EntityFrame.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ronni\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\ronni\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

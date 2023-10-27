@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\ronni\\Documents\\GitHub\\Guía6EntityFrame\\Guía6EntityFrame\\Guía6EntityFrame.csproj": {}
+    "E:\\ronni\\Documents\\GitHub\\Gu-a6EntityFrame\\Guía6EntityFrame.csproj": {}
   },
   "projects": {
-    "E:\\ronni\\Documents\\GitHub\\Guía6EntityFrame\\Guía6EntityFrame\\Guía6EntityFrame.csproj": {
+    "E:\\ronni\\Documents\\GitHub\\Gu-a6EntityFrame\\Guía6EntityFrame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\ronni\\Documents\\GitHub\\Guía6EntityFrame\\Guía6EntityFrame\\Guía6EntityFrame.csproj",
+        "projectUniqueName": "E:\\ronni\\Documents\\GitHub\\Gu-a6EntityFrame\\Guía6EntityFrame.csproj",
         "projectName": "Guía6EntityFrame",
-        "projectPath": "E:\\ronni\\Documents\\GitHub\\Guía6EntityFrame\\Guía6EntityFrame\\Guía6EntityFrame.csproj",
+        "projectPath": "E:\\ronni\\Documents\\GitHub\\Gu-a6EntityFrame\\Guía6EntityFrame.csproj",
         "packagesPath": "C:\\Users\\ronni\\.nuget\\packages\\",
-        "outputPath": "E:\\ronni\\Documents\\GitHub\\Guía6EntityFrame\\Guía6EntityFrame\\obj\\",
+        "outputPath": "E:\\ronni\\Documents\\GitHub\\Gu-a6EntityFrame\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ronni\\AppData\\Roaming\\NuGet\\NuGet.Config",

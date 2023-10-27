@@ -1,37 +1,78 @@
 ﻿using Guía6EntityFrame;
 
-using (var contextdb = new Context())
+while (true)
 {
-    foreach (var item in contextdb.estudiante)
-    {
-        Console.WriteLine("Datos:  Id: " + item.Id + " Nombre: " + item.Nombre + " Apellidos: " + item.Apellidos + " Edad: " + item.Edad + " Sexo: " + item.Sexo);
+    Console.Clear();
+    Console.WriteLine("Menú Principal:");
+    Console.WriteLine("Presione 1 para mostrar Estudiantes");
+    Console.WriteLine("Presione 2 para agregar Estudiante");
+    Console.WriteLine("Presione 3 para modificar Estudiante");
+    Console.WriteLine("Presione 4 para eliminar Estudiante");
+    Console.WriteLine("Presione 5 para Salir");
 
+    int opcion = Convert.ToInt32(Console.ReadLine());
+
+    switch (opcion)
+    {
+        case 1:
+            MostrarEst();
+            break;
+
+        case 2:
+            AgregarEst();
+            break;
+
+        case 3:
+            ModificarEst();
+            break;
+
+        case 4:
+            EliminarEst();
+            break;
+
+        case 5:
+            Environment.Exit(0);
+            break;
+
+        default:
+            Console.WriteLine("Opción invalida, Seleccione una opción valida");
+            break;
     }
 }
 
-bool AgregarRegistros = true;
 
-while (AgregarRegistros)
+static void MostrarEst()
 {
-    Console.WriteLine("Ingrese los datos del estudiante:");
+    Console.Clear();
+    using (var context = new Context())
+    {
+        foreach (var estudiante in context.estudiante)
+        {
+            Console.WriteLine("Datos: Id: " + estudiante.Id + ", Nombre: " + estudiante.Nombre + ", Apellidos: " + estudiante.Apellidos + ", Edad: " + estudiante.Edad + ", Sexo: " + estudiante.Sexo);
 
-    Console.Write("Nombre: ");
+        }
+    }
+    Console.ReadLine();
+}
+
+static void AgregarEst()
+{
+    Console.Clear();
+    Console.WriteLine("Agregar Estudiante \n");
+    Console.Write("Ingrese el Nombre: ");
     string nombre = Console.ReadLine();
-
-    Console.Write("Apellidos: ");
+    Console.Write("Ingrese los Apellidos: ");
     string apellidos = Console.ReadLine();
-
-    Console.Write("Sexo: ");
+    Console.Write("Ingrese el Sexo: ");
     string sexo = Console.ReadLine();
-
-    Console.Write("Edad: ");
+    Console.Write("Ingrese la Edad: ");
     int edad = Convert.ToInt32(Console.ReadLine());
 
-    using (var contextdb = new Context())
+    using (var context = new Context())
     {
-        contextdb.Database.EnsureCreated();
+        context.Database.EnsureCreated();
 
-        var NuevoEs = new Student()
+        var NuevoEst = new Student()
         {
             Nombre = nombre,
             Apellidos = apellidos,
@@ -39,19 +80,93 @@ while (AgregarRegistros)
             Edad = edad
         };
 
-        contextdb.Add(NuevoEs);
-        contextdb.SaveChanges();
+        context.estudiante.Add(NuevoEst);
+        context.SaveChanges();
     }
 
-    Console.WriteLine("¿Agregar más registros? (S/N)");
-    string respuesta = Console.ReadLine();
-    AgregarRegistros = respuesta.StartsWith("S", StringComparison.OrdinalIgnoreCase);
+    Console.WriteLine("Estudiante agregado exitosamente.");
+    Console.ReadLine();
 }
 
-using (var contextdb = new Context())
+static void ModificarEst()
 {
-    foreach (var estudiante in contextdb.estudiante)
+    Console.Clear();
+    Console.Write("ID del estudiante a modificar: ");
+    int id = Convert.ToInt32(Console.ReadLine());
+
+    using (var context = new Context())
     {
-        Console.WriteLine("Estudiante: " + estudiante.Nombre + estudiante.Apellidos + " Sexo: " + estudiante.Sexo + " Edad: " + estudiante.Edad);
+        var estudiante = context.estudiante.SingleOrDefault(e => e.Id == id);
+
+        if (estudiante != null)
+        {
+            Console.WriteLine("Estudiante actual:");
+            Console.WriteLine($"ID: {estudiante.Id}, Nombre: {estudiante.Nombre}, Apellidos: {estudiante.Apellidos}, Edad: {estudiante.Edad}, Sexo: {estudiante.Sexo}");
+            Console.WriteLine("¿Qué atributo desea modificar?");
+            Console.WriteLine("1. Nombre");
+            Console.WriteLine("2. Apellidos");
+            Console.WriteLine("3. Edad");
+            Console.WriteLine("4. Sexo");
+
+            int opcion = Convert.ToInt32(Console.ReadLine());
+
+            switch (opcion)
+            {
+                case 1:
+                    Console.Write("Nuevo nombre: ");
+                    estudiante.Nombre = Console.ReadLine();
+                    break;
+                case 2:
+                    Console.Write("Nuevos apellidos: ");
+                    estudiante.Apellidos = Console.ReadLine();
+                    break;
+                case 3:
+                    Console.Write("Nueva edad: ");
+                    estudiante.Edad = Convert.ToInt32(Console.ReadLine());
+                    break;
+                case 4:
+                    Console.Write("Nuevo sexo: ");
+                    estudiante.Sexo = Console.ReadLine();
+                    break;
+                default:
+                    Console.WriteLine("Opción no válida.");
+                    break;
+            }
+
+            context.SaveChanges();
+            Console.WriteLine("Estudiante modificado exitosamente.");
+        }
+        else
+        {
+            Console.WriteLine("Estudiante no encontrado.");
+        }
     }
+
+    Console.ReadLine();
+}
+
+static void EliminarEst()
+{
+    Console.Clear();
+    Console.WriteLine("Eliminar Estudiante");
+    Console.Write("ID del estudiante a eliminar: ");
+    int id = Convert.ToInt32(Console.ReadLine());
+
+    using (var context = new Context())
+    {
+        var estudiante = context.estudiante.SingleOrDefault(e => e.Id == id);
+
+        if (estudiante != null)
+        {
+            context.estudiante.Remove(estudiante);
+            context.SaveChanges();
+            Console.WriteLine("Estudiante eliminado exitosamente.");
+        }
+        else
+        {
+            Console.WriteLine("Estudiante no encontrado.");
+        }
+    }
+
+    Console.ReadLine();
 }
