@@ -1,172 +1,186 @@
 ﻿using Guía6EntityFrame;
 
-while (true)
+class Program
 {
-    Console.Clear();
-    Console.WriteLine("Menú Principal:");
-    Console.WriteLine("Presione 1 para mostrar Estudiantes");
-    Console.WriteLine("Presione 2 para agregar Estudiante");
-    Console.WriteLine("Presione 3 para modificar Estudiante");
-    Console.WriteLine("Presione 4 para eliminar Estudiante");
-    Console.WriteLine("Presione 5 para Salir");
-
-    int opcion = Convert.ToInt32(Console.ReadLine());
-
-    switch (opcion)
+    static void Main(string[] args)
     {
-        case 1:
-            MostrarEst();
-            break;
-
-        case 2:
-            AgregarEst();
-            break;
-
-        case 3:
-            ModificarEst();
-            break;
-
-        case 4:
-            EliminarEst();
-            break;
-
-        case 5:
-            Environment.Exit(0);
-            break;
-
-        default:
-            Console.WriteLine("Opción invalida, Seleccione una opción valida");
-            break;
-    }
-}
-
-
-static void MostrarEst()
-{
-    Console.Clear();
-    using (var context = new Context())
-    {
-        foreach (var estudiante in context.estudiante)
+        while (true)
         {
-            Console.WriteLine("Datos: Id: " + estudiante.Id + ", Nombre: " + estudiante.Nombre + ", Apellidos: " + estudiante.Apellidos + ", Edad: " + estudiante.Edad + ", Sexo: " + estudiante.Sexo);
-
-        }
-    }
-    Console.ReadLine();
-}
-
-static void AgregarEst()
-{
-    Console.Clear();
-    Console.WriteLine("Agregar Estudiante \n");
-    Console.Write("Ingrese el Nombre: ");
-    string nombre = Console.ReadLine();
-    Console.Write("Ingrese los Apellidos: ");
-    string apellidos = Console.ReadLine();
-    Console.Write("Ingrese el Sexo: ");
-    string sexo = Console.ReadLine();
-    Console.Write("Ingrese la Edad: ");
-    int edad = Convert.ToInt32(Console.ReadLine());
-
-    using (var context = new Context())
-    {
-        context.Database.EnsureCreated();
-
-        var NuevoEst = new Student()
-        {
-            Nombre = nombre,
-            Apellidos = apellidos,
-            Sexo = sexo,
-            Edad = edad
-        };
-
-        context.estudiante.Add(NuevoEst);
-        context.SaveChanges();
-    }
-
-    Console.WriteLine("Estudiante agregado exitosamente.");
-    Console.ReadLine();
-}
-
-static void ModificarEst()
-{
-    Console.Clear();
-    Console.Write("ID del estudiante a modificar: ");
-    int id = Convert.ToInt32(Console.ReadLine());
-
-    using (var context = new Context())
-    {
-        var estudiante = context.estudiante.SingleOrDefault(e => e.Id == id);
-
-        if (estudiante != null)
-        {
-            Console.WriteLine("Estudiante actual:");
-            Console.WriteLine($"ID: {estudiante.Id}, Nombre: {estudiante.Nombre}, Apellidos: {estudiante.Apellidos}, Edad: {estudiante.Edad}, Sexo: {estudiante.Sexo}");
-            Console.WriteLine("¿Qué atributo desea modificar?");
-            Console.WriteLine("1. Nombre");
-            Console.WriteLine("2. Apellidos");
-            Console.WriteLine("3. Edad");
-            Console.WriteLine("4. Sexo");
+            Console.Clear();
+            Console.WriteLine("Menú Principal:\n");
+            Console.WriteLine("1 - Mostrar Estudiantes");
+            Console.WriteLine("2 - Agregar Estudiante");
+            Console.WriteLine("3 - Modificar Estudiante");
+            Console.WriteLine("4 - Eliminar Estudiante");
+            Console.WriteLine("5 - Salir");
 
             int opcion = Convert.ToInt32(Console.ReadLine());
 
             switch (opcion)
             {
                 case 1:
-                    Console.Write("Nuevo nombre: ");
-                    estudiante.Nombre = Console.ReadLine();
+                    MostrarEstudiantes();
                     break;
+
                 case 2:
-                    Console.Write("Nuevos apellidos: ");
-                    estudiante.Apellidos = Console.ReadLine();
+                    AgregarEstudiante();
                     break;
+
                 case 3:
-                    Console.Write("Nueva edad: ");
-                    estudiante.Edad = Convert.ToInt32(Console.ReadLine());
+                    ModificarEstudiante();
                     break;
+
                 case 4:
-                    Console.Write("Nuevo sexo: ");
-                    estudiante.Sexo = Console.ReadLine();
+                    EliminarEstudiante();
                     break;
+
+                case 5:
+                    Environment.Exit(0);
+                    break;
+
                 default:
-                    Console.WriteLine("Opción no válida.");
+                    Console.WriteLine("Opción inválida. Seleccione una opción válida.");
                     break;
             }
-
-            context.SaveChanges();
-            Console.WriteLine("Estudiante modificado exitosamente.");
-        }
-        else
-        {
-            Console.WriteLine("Estudiante no encontrado.");
         }
     }
 
-    Console.ReadLine();
-}
-
-static void EliminarEst()
-{
-    Console.Clear();
-    Console.WriteLine("Eliminar Estudiante");
-    Console.Write("ID del estudiante a eliminar: ");
-    int id = Convert.ToInt32(Console.ReadLine());
-
-    using (var context = new Context())
+    static void MostrarEstudiantes()
     {
-        var estudiante = context.estudiante.SingleOrDefault(e => e.Id == id);
+        Console.Clear();
+        using (var context = new Context())
+        {
+            var estudiantes = context.estudiante.ToList();
 
-        if (estudiante != null)
-        {
-            context.estudiante.Remove(estudiante);
-            context.SaveChanges();
-            Console.WriteLine("Estudiante eliminado exitosamente.");
+            if (estudiantes.Count == 0)
+            {
+                Console.WriteLine("No hay estudiantes registrados.");
+            }
+            else
+            {
+                Console.WriteLine("Lista de Estudiantes:");
+                foreach (var estudiante in estudiantes)
+                {
+                    Console.WriteLine("ID: " + estudiante.Id + ", Nombre: " + estudiante.Nombre + ", Apellidos: " + estudiante.Apellidos + ", Edad: " + estudiante.Edad + ", Sexo: " + estudiante.Sexo);
+                }
+            }
         }
-        else
-        {
-            Console.WriteLine("Estudiante no encontrado.");
-        }
+        Console.ReadLine();
     }
 
-    Console.ReadLine();
+    static void AgregarEstudiante()
+    {
+        Console.Clear();
+        Console.WriteLine("Agregar Estudiante \n");
+        Console.Write("Ingrese el Nombre: ");
+        string nombre = Console.ReadLine();
+        Console.Write("Ingrese los Apellidos: ");
+        string apellidos = Console.ReadLine();
+        Console.Write("Ingrese el Sexo: ");
+        string sexo = Console.ReadLine();
+        Console.Write("Ingrese la Edad: ");
+        int edad = Convert.ToInt32(Console.ReadLine());
+
+        using (var context = new Context())
+        {
+            context.Database.EnsureCreated();
+
+            var nuevoEstudiante = new Student()
+            {
+                Nombre = nombre,
+                Apellidos = apellidos,
+                Sexo = sexo,
+                Edad = edad
+            };
+
+            context.estudiante.Add(nuevoEstudiante);
+            context.SaveChanges();
+        }
+
+        Console.WriteLine("Estudiante agregado exitosamente.");
+        Console.ReadLine();
+    }
+
+    static void ModificarEstudiante()
+    {
+        Console.Clear();
+        Console.Write("ID del estudiante a modificar: ");
+        int id = Convert.ToInt32(Console.ReadLine());
+
+        using (var context = new Context())
+        {
+            var estudiante = context.estudiante.SingleOrDefault(e => e.Id == id);
+
+            if (estudiante != null)
+            {
+                Console.WriteLine("Estudiante actual:\n");
+                Console.WriteLine("ID: " + estudiante.Id + ", Nombre: " + estudiante.Nombre + ", Apellidos: " + estudiante.Apellidos + ", Edad: " + estudiante.Edad + ", Sexo: " + estudiante.Sexo);
+                Console.WriteLine("¿Qué desea modificar?\n");
+                Console.WriteLine("1 - Nombre");
+                Console.WriteLine("2 - Apellidos");
+                Console.WriteLine("3 - Edad");
+                Console.WriteLine("4 - Sexo");
+
+                int opcion = Convert.ToInt32(Console.ReadLine());
+
+                switch (opcion)
+                {
+                    case 1:
+                        Console.Write("Ingrese el nuevo nombre: ");
+                        estudiante.Nombre = Console.ReadLine();
+                        break;
+                    case 2:
+                        Console.Write("Ingrese los nuevos apellidos: ");
+                        estudiante.Apellidos = Console.ReadLine();
+                        break;
+                    case 3:
+                        Console.Write("Ingrese la nueva edad: ");
+                        estudiante.Edad = Convert.ToInt32(Console.ReadLine());
+                        break;
+                    case 4:
+                        Console.Write("Ingrese el nuevo sexo: ");
+                        estudiante.Sexo = Console.ReadLine();
+                        break;
+                    default:
+                        Console.WriteLine("Opción no válida");
+                        break;
+                }
+
+                context.SaveChanges();
+                Console.WriteLine("Estudiante modificado exitosamente.");
+            }
+            else
+            {
+                Console.WriteLine("Estudiante no encontrado.");
+            }
+        }
+
+        Console.ReadLine();
+    }
+
+    static void EliminarEstudiante()
+    {
+        Console.Clear();
+        Console.WriteLine("Eliminar Estudiante");
+        Console.Write("ID del estudiante: ");
+        int id = Convert.ToInt32(Console.ReadLine());
+
+        using (var context = new Context())
+        {
+            var estudiante = context.estudiante.SingleOrDefault(e => e.Id == id);
+
+            if (estudiante != null)
+            {
+                context.estudiante.Remove(estudiante);
+                context.SaveChanges();
+                Console.WriteLine("Estudiante eliminado");
+            }
+            else
+            {
+                Console.WriteLine("Estudiante no encontrado.");
+            }
+        }
+
+        Console.ReadLine();
+    }
 }
